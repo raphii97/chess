@@ -17,6 +17,10 @@ public class Spot {
         this.piece = p;
     }
 
+    public void removePiece() {
+        this.piece = null;
+    }
+
     public int getX() {
         return this.x;
     }

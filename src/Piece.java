@@ -6,4 +6,12 @@ public class Piece {
         this.player = player;
         this.type = type;
     }
+
+    public Player getPlayer(){
+        return this.player;
+    }
+
+    public Type getType(){
+        return this.type;
+    }
 }
