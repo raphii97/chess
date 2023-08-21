@@ -34,26 +34,23 @@ public class Chess{
         return input;
     }
 
-    //TODO: and check if the move is valid
     private boolean validateInput(String input){
         return input.matches("[a-h][1-8][a-h][1-8]");
     }
 
+    private Spot inputToSpot(String input, boolean isStartSpot){
+        if (isStartSpot){
+            return board.getSpot(LETTERS.indexOf(input.charAt(0)), 8 - Character.getNumericValue(input.charAt(1)));
+        } else {
+            return board.getSpot(LETTERS.indexOf(input.charAt(2)), 8 - Character.getNumericValue(input.charAt(3)));
+        }
+    }
+
     private void run(){
-        String input = "";
-        int x1, y1, x2, y2;
+        String playerInput = getInput();
 
-        input = getInput();
-
-        x1 = LETTERS.indexOf(input.charAt(0));
-        y1 = 8 - Character.getNumericValue(input.charAt(1));
-        x2 = LETTERS.indexOf(input.charAt(2));
-        y2 = 8 - Character.getNumericValue(input.charAt(3));
-
-        Piece currentPiece = board.getSpot(x1, y1).getPiece();
-
-        if (currentPiece.isMoveValid(x1, 8 - y1, x2, 8 - y2) && currentPiece.getPlayer() == currentPlayer) {
-            move(x1, y1, x2, y2);
+        if (board.isValidMove()) {
+            move(inputToSpot(playerInput, true), inputToSpot(playerInput, false));
             board.printBoard();
             switchPlayer();
         }
@@ -64,9 +61,9 @@ public class Chess{
         if (!isCheckmate) run();
     }
 
-    private void move(int x1, int y1, int x2, int y2){
-        board.setSpot(x2, y2, board.getSpot(x1, y1).getPiece());
-        board.setSpot(x1, y1, null);
+    private void move(Spot startSpot, Spot endSpot){
+        endSpot.setPiece(startSpot.getPiece());
+        startSpot.setPiece(null);
     }
 
     private void switchPlayer(){

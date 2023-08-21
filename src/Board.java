@@ -27,7 +27,6 @@ public class Board {
             board[1][i] = new Spot(1, i, new Piece(Player.BLACK, Type.PAWN));
         }
 
-
         board[7][0] = new Spot(7, 0, new Piece(Player.WHITE, Type.ROOK));
         board[7][1] = new Spot(7, 1, new Piece(Player.WHITE, Type.KNIGHT));
         board[7][2] = new Spot(7, 2, new Piece(Player.WHITE, Type.BISHOP));
@@ -70,7 +69,7 @@ public class Board {
         return board[y][x];
     }
 
-    public void setSpot(int x, int y, Piece piece){
-        board[y][x].setPiece(piece);
+    public boolean isValidMove(){
+        return true;
     }
 }
