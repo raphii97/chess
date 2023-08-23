@@ -38,19 +38,14 @@ public class Chess{
         return input.matches("[a-h][1-8][a-h][1-8]");
     }
 
-    private Spot inputToSpot(String input, boolean isStartSpot){
-        if (isStartSpot){
-            return board.getSpot(LETTERS.indexOf(input.charAt(0)), 8 - Character.getNumericValue(input.charAt(1)));
-        } else {
-            return board.getSpot(LETTERS.indexOf(input.charAt(2)), 8 - Character.getNumericValue(input.charAt(3)));
-        }
-    }
-
     private void run(){
         String playerInput = getInput();
 
-        if (board.isValidMove()) {
-            move(inputToSpot(playerInput, true), inputToSpot(playerInput, false));
+        Spot startSpot = board.getSpot(LETTERS.indexOf(playerInput.charAt(0)), 8 - Character.getNumericValue(playerInput.charAt(1)));
+        Spot endSpot = board.getSpot(LETTERS.indexOf(playerInput.charAt(2)), 8 - Character.getNumericValue(playerInput.charAt(3)));
+
+        if (board.isValidMove(startSpot, endSpot, currentPlayer)){
+            move(startSpot, endSpot);
             board.printBoard();
             switchPlayer();
         }
@@ -63,7 +58,7 @@ public class Chess{
 
     private void move(Spot startSpot, Spot endSpot){
         endSpot.setPiece(startSpot.getPiece());
-        startSpot.setPiece(null);
+        startSpot.removePiece();
     }
 
     private void switchPlayer(){

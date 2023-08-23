@@ -18,7 +18,7 @@ public class Spot {
     }
 
     public void removePiece() {
-        this.piece = null;
+        this.piece = new Piece(Player.NONE, Type.EMPTY);
     }
 
     public int getX() {
